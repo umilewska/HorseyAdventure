@@ -16,13 +16,14 @@ public class MovementPlayer : MonoBehaviour
     private bool hasFinished;
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
         rb = GetComponent<Rigidbody2D>();
         respawnPoint = transform.position;
+        yield return new WaitForSeconds(4f); 
         canMove = true;
     }
-    
+
     // Update is called once per frame
     void Update()
     {

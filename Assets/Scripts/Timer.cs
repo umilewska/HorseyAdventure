@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,69 +6,56 @@ using TMPro;
 
 public class Timer : MonoBehaviour
 {
-    [Header("Component")]
-    public TextMeshProUGUI timerText;
-
-    [Header("Timer Settings")] 
-    public float currentTime;
-    public bool countDown;
-    
-    [Header("Limit Settings")]
-    public bool hasLimit;
-    public float timerLimit;
-
-    [Header("Format Settings")] 
-    public TimerFormats format;
-    public Dictionary<TimerFormats, string> timeFormats = new Dictionary<TimerFormats, string>();
-
+    [Header("Component")] public TextMeshProUGUI timerText;
+    [Header("Component")] public TextMeshProUGUI timeText;
+    private float currentTime;
+    protected static float finalTime;
     private MovementPlayer _player;
-    private float finalTime;
+    private float startTime = 4f;
 
+    
+        // void Start()
+    // {
+    //     StartCoroutine(CountTime());
+    // }
 
-    // Start is called before the first frame update
-    void Start()
+    // IEnumerator CountTime()
+    // {
+    //     yield return new WaitForSeconds(4f);
+    //     currentTime += Time.deltaTime;
+    //     timerText.text = currentTime.ToString("0.00");
+    //     if (_player.HasFinished())
+    //     {
+    //         finalTime = currentTime;
+    //         timerText.text = finalTime.ToString();
+    //         enabled = false;
+    //     }
+    // }
+    
+    IEnumerator Start()
     {
-        timerText.text = "0";
-        timeFormats.Add(TimerFormats.Whole, "0");   //odliczanie całościowe do startu 
-        timeFormats.Add(TimerFormats.HundrethsDecimal, "0.00");     // mierzenie czasu 
+        timeText.gameObject.SetActive(false);
+        timerText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(4f);
+        timeText.gameObject.SetActive(true);
+        timerText.gameObject.SetActive(true);
         
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        currentTime = countDown ? currentTime -= Time.deltaTime : currentTime += Time.deltaTime;
-
-        // Odliczanie przed startem wyścigu - jescze nie zrobione
-        if (hasLimit && (!countDown && currentTime >= timerLimit))
+        currentTime = Time.time - startTime;
+        timerText.text = currentTime.ToString("0.00");
+        if (_player.HasFinished())
         {
-            currentTime = timerLimit;
-            SetTimerText();
+            finalTime = currentTime; 
+            timerText.text = finalTime.ToString(); 
             enabled = false;
         }
-
-        if (!hasLimit && _player.HasFinished())
-        {
-            enabled = false;
-            finalTime = currentTime;
-            SetTimerText();
-        }
-        SetTimerText();
-    }
-
-    private void SetTimerText()
-    {
-        timerText.text = currentTime.ToString(timeFormats[format]);
     }
 
     public float getFinalTime()
     {
         return finalTime;
     }
-}
-
-public enum TimerFormats
-{
-    Whole,
-    HundrethsDecimal
+    
 }

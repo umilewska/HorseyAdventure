@@ -7,12 +7,13 @@ using TMPro;
 
 public class Menu : MonoBehaviour
 {
-    private static Timer timer;
+    private Timer timer = new Timer();
     [Header("Component")]
     public TextMeshProUGUI timerText;
 
-    private void Update()
+    private void Start()
     {
+        //timerText.text = "0";
         timerText.text = timer.getFinalTime().ToString();   //nie działa Xddd
     }
     
