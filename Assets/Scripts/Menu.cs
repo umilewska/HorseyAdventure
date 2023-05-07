@@ -19,7 +19,7 @@ public class Menu : MonoBehaviour
     
     public void Restart() {
             Debug.Log("Restart game...");
-            SceneManager.LoadScene("SceneNo2137"); //załadowanie sceny gry
+            SceneManager.LoadScene("Track1"); //załadowanie sceny gry
         } 
     public void QuitGame() {
             Debug.Log("Quit game...");
