@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Ground
   - Obstacle
+  - Obstacle2
+  - Cherry
+  - FinishLevel1
+  - FinishLevel2
   layers:
   - Default
   - TransparentFX

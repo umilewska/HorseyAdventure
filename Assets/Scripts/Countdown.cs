@@ -7,8 +7,8 @@ using TMPro;
 public class Countdown : MonoBehaviour
 {
 
-    [Header("Component")] public TextMeshProUGUI countdownDisplay;
-    
+    //[Header("Component")] public TextMeshProUGUI countdownDisplayOld;
+    [Header("Component")] public Text countdownDisplay;
     private int CountdownTime = 3;
     private MovementPlayer _player;
 
